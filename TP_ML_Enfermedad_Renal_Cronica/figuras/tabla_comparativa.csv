@@ -1,0 +1,5 @@
+Modelo,Accuracy,Precision,Recall,Especificidad,F1-score,AUC,FN,FP,F1 CV (media ± desvío),F1 train
+Regresión Logística,0.975,1.0,0.96,1.0,0.9796,0.9993,2,0,0.997 ± 0.005,1.0
+SVM,0.9875,1.0,0.98,1.0,0.9899,1.0,1,0,0.997 ± 0.005,1.0
+Random Forest,1.0,1.0,1.0,1.0,1.0,1.0,0,0,0.995 ± 0.006,1.0
+Red Neuronal,0.9625,1.0,0.94,1.0,0.9691,0.9947,3,0,0.995 ± 0.006,0.9981
