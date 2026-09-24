@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Póster – Enfermedad Renal Crónica – Bethania Avila</title>
+<style>
+  @page { size: 594mm 841mm; margin: 0; }
+  :root {
+    --ink: #1d2433; --muted: #5a6478; --line: #d9dee8; --bg: #ffffff; --panel: #f5f7fb;
+    --ckd: #C0392B; --sano: #2E86C1; --accent: #1f4e79; --ok: #1e8449; --warn: #b9770e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+  .poster { width: 594mm; height: 841mm; padding: 16mm 16mm 12mm; display: flex; flex-direction: column; overflow: hidden; }
+  header { background: linear-gradient(120deg, #1f4e79, #2e6da4); color: #fff; border-radius: 6mm;
+    padding: 10mm 14mm; display: flex; justify-content: space-between; align-items: center; gap: 10mm; }
+  header h1 { font-size: 21mm; line-height: 1.05; margin: 0 0 4mm; letter-spacing: -0.3mm; }
+  header .sub { font-size: 8.4mm; opacity: .95; }
+  header .autor { font-size: 9mm; font-weight: 600; margin-top: 4mm; }
+  header .caso { text-align: right; font-size: 6.6mm; line-height: 1.5; min-width: 155mm; }
+  header .caso b { font-size: 7.5mm; }
+  .cols { display: grid; grid-template-columns: 1fr 1.12fr 1fr; gap: 9mm; margin-top: 9mm; flex: 1; min-height: 0; }
+  .col { display: flex; flex-direction: column; gap: 7mm; min-height: 0; }
+  section { background: var(--panel); border-radius: 4mm; padding: 6mm 7mm; border-top: 2.2mm solid var(--accent); }
+  h2 { font-size: 10mm; margin: 0 0 3.5mm; color: var(--accent); display: flex; align-items: center; gap: 3mm; }
+  h2 .n { background: var(--accent); color: #fff; border-radius: 50%; width: 11mm; height: 11mm; font-size: 6.5mm;
+    display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  p, li { font-size: 6.5mm; line-height: 1.4; margin: 0 0 3mm; }
+  ul { margin: 0; padding-left: 7mm; }
+  img { width: 100%; display: block; border-radius: 2mm; background: #fff; }
+  .cap { font-size: 5.2mm; color: var(--muted); margin-top: 1.5mm; line-height: 1.3; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin: 3mm 0 4mm; }
+  .kpi { background: #fff; border: .5mm solid var(--line); border-radius: 3mm; padding: 3mm; text-align: center; }
+  .kpi b { display: block; font-size: 13mm; line-height: 1.1; color: var(--accent); }
+  .kpi span { font-size: 5.2mm; color: var(--muted); }
+  .kpi.ckd b { color: var(--ckd); } .kpi.sano b { color: var(--sano); } .kpi.warn b { color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: 5.8mm; background: #fff; }
+  th, td { padding: 2mm 2.4mm; border-bottom: .4mm solid var(--line); text-align: center; }
+  th { background: #e6ecf5; color: var(--accent); font-weight: 700; }
+  td:first-child, th:first-child { text-align: left; }
+  tr.best td { background: #e8f6ee; font-weight: 700; }
+  .pipe { display: flex; align-items: stretch; gap: 1.6mm; margin: 2mm 0 4mm; }
+  .pipe div { flex: 1; background: #fff; border: .5mm solid var(--accent); border-radius: 2.5mm; padding: 3mm 1.6mm;
+    font-size: 5.2mm; text-align: center; line-height: 1.25; display: flex; align-items: center; justify-content: center; }
+  .pipe .arr { flex: none; border: none; background: none; color: var(--accent); font-size: 7mm; padding: 0; }
+  .pipe .test { border-color: var(--ckd); color: var(--ckd); font-weight: 700; flex: 1.25; }
+  .callout { background: #fff; border-left: 2mm solid var(--ckd); border-radius: 2mm; padding: 3.5mm 4.5mm; margin-top: 3.5mm; }
+  .callout p { margin: 0; font-size: 6.3mm; }
+  .big { font-size: 7mm; font-weight: 700; }
+  .refs li { font-size: 4.8mm; line-height: 1.3; margin-bottom: 1.4mm; }
+  .refs { padding-left: 0; list-style: none; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+  .tag { display: inline-block; background: var(--accent); color: #fff; border-radius: 2mm; padding: .4mm 2.2mm; font-size: 4.4mm; font-weight: 600; }
+  .grow { flex: 1; }
+  footer { margin-top: 5mm; font-size: 4.2mm; color: var(--muted); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="poster">
+  <header>
+    <div>
+      <h1>Detección de Enfermedad Renal Crónica con Machine Learning:<br>el peso de los valores faltantes</h1>
+      <div class="sub">Comparación de Regresión Logística, SVM, Random Forest y Red Neuronal sobre datos clínicos reales</div>
+      <div class="autor">Bethania Arami Avila Dominguez</div>
+    </div>
+    <div class="caso">
+      <b>Trabajo Práctico Integrador</b><br>
+      Taller de Machine Learning – Proyecto II ML<br>
+      Caso 3 · Dataset UCI ID 336<br>
+      Septiembre 2026
+    </div>
+  </header>
+
+  <div class="cols">
+    <!-- ============ COLUMNA 1 ============ -->
+    <div class="col">
+      <section>
+        <h2><span class="n">1</span>Problema</h2>
+        <p>La <b>enfermedad renal crónica (ERC)</b> afecta a ~9 % de la población mundial [2] y es <b>asintomática en etapas tempranas</b>: suele diagnosticarse tarde.</p>
+        <p><b>Objetivo:</b> clasificar pacientes <span style="color:var(--ckd);font-weight:700">con ERC (ckd = 1)</span> y <span style="color:var(--sano);font-weight:700">sin ERC (notckd = 0)</span> a partir de análisis de sangre/orina de rutina y antecedentes.</p>
+        <p>En tamizaje, el error más costoso es el <b>falso negativo</b> → métrica clave: <b>Recall</b> (y F1).</p>
+        <p><b>Pregunta del caso:</b> <i>¿cómo afecta el tratamiento de los valores faltantes al desempeño final?</i></p>
+      </section>
+
+      <section>
+        <h2><span class="n">2</span>Dataset</h2>
+        <p><i>Chronic Kidney Disease</i> – UCI ML Repository [1], Apollo Hospitals (India).</p>
+        <div class="kpis">
+          <div class="kpi"><b>400</b><span>pacientes</span></div>
+          <div class="kpi ckd"><b>250</b><span>ckd (62,5 %)</span></div>
+          <div class="kpi sano"><b>150</b><span>notckd (37,5 %)</span></div>
+          <div class="kpi"><b>24</b><span>variables (14 num. + 10 binarias)</span></div>
+          <div class="kpi warn"><b>10,5 %</b><span>celdas faltantes</span></div>
+          <div class="kpi warn"><b>158</b><span>filas completas (40 %)</span></div>
+        </div>
+        <img src="../figuras/02_faltantes.png" alt="Faltantes por variable y por paciente según clase">
+        <div class="cap">Los faltantes <b>no son aleatorios</b>: un paciente con ERC tiene en promedio 3,6 datos faltantes y uno sano, 0,7. Entre las filas completas solo el 27 % es ckd.</div>
+      </section>
+
+      <section class="grow">
+        <h2><span class="n">3</span>Exploración</h2>
+        <img src="../figuras/07_dispersion_hemo_sc.png" alt="Hemoglobina vs creatinina" style="width:88%;margin:0 auto">
+        <div class="cap" style="text-align:center">Dos variables ya separan casi por completo las clases.</div>
+        <ul style="margin-top:3mm">
+          <li>ERC: <b>↓ hemoglobina, hematocrito, gravedad específica</b>; <b>↑ creatinina, urea, albúmina</b>.</li>
+          <li>Hipertensión, diabetes, anemia y edema aparecen <b>solo</b> en pacientes con ERC.</li>
+          <li>Hay outliers clínicamente reales (creatinina de hasta 76 mg/dl) → se conservan.</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- ============ COLUMNA 2 ============ -->
+    <div class="col">
+      <section>
+        <h2><span class="n">4</span>Metodología</h2>
+        <div class="pipe">
+          <div>Datos UCI<br>(ucimlrepo)</div><div class="arr">→</div>
+          <div>Split 80/20<br>estratificado</div><div class="arr">→</div>
+          <div><b>Pipeline</b><br>0/1 · escalado · imputación</div><div class="arr">→</div>
+          <div>GridSearchCV<br>5-fold · F1</div><div class="arr">→</div>
+          <div class="test">Test (n = 80)<br>usado una sola vez</div>
+        </div>
+        <p>Todo el preprocesamiento se ajusta <b>solo con el entrenamiento</b> de cada fold → <b>sin data leakage</b>. Semilla fija (42) para que sea reproducible.</p>
+        <table>
+          <tr><th>Modelo</th><th>Hiperparámetros explorados</th><th>Mejor configuración</th></tr>
+          <tr><td>Regresión Logística</td><td>C ∈ {0,01…100}, L1/L2, class_weight</td><td>C = 10, L2</td></tr>
+          <tr><td>SVM</td><td>lineal/RBF, C ∈ {0,1…100}, γ</td><td>RBF, C = 10, γ = scale</td></tr>
+          <tr><td>Random Forest</td><td>árboles, profundidad, hojas, max_features</td><td>200 árboles, sin límite</td></tr>
+          <tr><td>Red Neuronal (Keras)</td><td>capas (8) · (16, 8) · (32, 16); dropout 0/0,3</td><td>24→8→1, dropout 0,3</td></tr>
+        </table>
+        <div class="cap">Red: ReLU + salida sigmoide, entropía cruzada binaria, Adam (lr = 0,003), batch 32, early stopping (paciencia 20).</div>
+      </section>
+
+      <section class="grow">
+        <h2><span class="n">5</span>Resultados sobre Test</h2>
+        <table>
+          <tr><th>Modelo</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>AUC</th><th>F1 CV</th></tr>
+          <tr><td>Regresión Logística</td><td>0,975</td><td>1,000</td><td>0,960</td><td>0,980</td><td>0,999</td><td>0,997</td></tr>
+          <tr><td>SVM (RBF)</td><td>0,988</td><td>1,000</td><td>0,980</td><td>0,990</td><td>1,000</td><td>0,997</td></tr>
+          <tr class="best"><td>Random Forest</td><td>1,000</td><td>1,000</td><td>1,000</td><td>1,000</td><td>1,000</td><td>0,995</td></tr>
+          <tr><td>Red Neuronal</td><td>0,963</td><td>1,000</td><td>0,940</td><td>0,969</td><td>0,995</td><td>0,995</td></tr>
+        </table>
+        <img src="../figuras/09_matrices_confusion.png" alt="Matrices de confusión" style="margin-top:4mm">
+        <div class="cap">Matrices de confusión (Test). <b>Ningún falso positivo</b>; todos los errores son enfermos no detectados (FN: 2 · 1 · 0 · 3).</div>
+        <div class="grid2" style="margin-top:3mm;grid-template-columns:0.8fr 1.2fr;align-items:center">
+          <div><img src="../figuras/10_curvas_roc.png" alt="Curvas ROC"></div>
+          <div class="cap" style="font-size:6mm">Curvas ROC sobre Test: <b>AUC ≥ 0,995</b> en los 4 modelos. Los modelos ordenan casi perfectamente a los pacientes; las diferencias aparecen solo en el umbral de 0,5.</div>
+        </div>
+        <img src="../figuras/12_importancia_variables.png" alt="Importancia de variables" style="margin-top:4mm">
+        <div class="cap">Coeficientes de la Regresión Logística e importancia por permutación del RF: <b>hemo, sg, pcv, al, sc, htn, dm</b>, todas con sentido clínico.</div>
+      </section>
+    </div>
+
+    <!-- ============ COLUMNA 3 ============ -->
+    <div class="col">
+      <section>
+        <h2><span class="n">6</span>¿Y los valores faltantes?</h2>
+        <p>Comparamos 6 estrategias con los mismos hiperparámetros (CV 5×2 sobre Training; se evalúa siempre sobre <b>todos</b> los pacientes).</p>
+        <img src="poster_heatmap_faltantes.png" alt="F1 por estrategia de faltantes y modelo">
+        <div class="callout">
+          <p class="big">Eliminar pacientes incompletos → F1 0,81–0,92 · Recall 0,69–0,86</p>
+          <p>Se pierde el 62 % del entrenamiento y la proporción de ckd cae de <b>62,5 % a 26,5 %</b>: los modelos dejan de detectar enfermos. Cualquier imputación (mediana, KNN, MICE) → <b>F1 ≥ 0,98</b>.</p>
+        </div>
+        <div class="callout" style="border-left-color:var(--warn)">
+          <p>Un modelo que <b>solo sabe qué datos faltan</b> ya logra AUC = 0,86: la ausencia de datos es informativa (efecto del protocolo de registro) → cuidado con explotarla.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="n">7</span>Discusión</h2>
+        <ul>
+          <li>Clases casi separables: los 4 modelos obtienen F1 CV ≥ 0,99, en línea con la literatura (RF 99,75 % [4]; SVM 98,5 % [5]).</li>
+          <li>Las diferencias en Test son de <b>1 a 3 pacientes</b> (1 paciente = 1,25 pts de Accuracy): hay que leerlas con cautela.</li>
+          <li>La red neuronal extrapola mal con outliers extremos (creatinina 32 → P(ckd) ≈ 0); el RF es robusto.</li>
+          <li>Brecha train–CV ≤ 0,005 y CV ≈ Test → sin sobreajuste relevante.</li>
+        </ul>
+      </section>
+
+      <section class="grow">
+        <h2><span class="n">8</span>Conclusiones</h2>
+        <ul>
+          <li>La ERC se detecta con muy alta precisión usando <b>análisis de rutina</b>.</li>
+          <li><b>Random Forest</b> fue el más adecuado: Recall = 1,00 (ningún enfermo sin detectar). La Regresión Logística es una alternativa más interpretable.</li>
+          <li><b>El tratamiento de faltantes pesó más que la elección del modelo</b>: hay que conservar a todos los pacientes e imputar dentro del pipeline.</li>
+          <li><b>Limitaciones:</b> 400 pacientes de un solo hospital; faltantes asociados a la clase; Test pequeño.</li>
+          <li><b>Trabajo futuro:</b> validación externa, ajuste del umbral para priorizar el Recall, XGBoost, SHAP.</li>
+        </ul>
+        <h2 style="margin-top:4mm;font-size:7.5mm">Referencias</h2>
+        <ol class="refs">
+          <li>[1] L. J. Rubini, P. Soundarapandian y P. Eswaran, "Chronic Kidney Disease," UCI ML Repository, 2015, doi: 10.24432/C5G020.</li>
+          <li>[2] KDIGO CKD Work Group, "KDIGO 2012 clinical practice guideline for the evaluation and management of CKD," <i>Kidney Int. Suppl.</i>, vol. 3, no. 1, pp. 1–150, 2013.</li>
+          <li>[4] J. Qin <i>et al.</i>, "A machine learning methodology for diagnosing chronic kidney disease," <i>IEEE Access</i>, vol. 8, pp. 20991–21002, 2020.</li>
+          <li>[5] H. Polat, H. Danaei Mehr y A. Cetin, "Diagnosis of chronic kidney disease based on SVM by feature selection methods," <i>J. Med. Syst.</i>, vol. 41, no. 4, art. 55, 2017.</li>
+          <li>[7] L. Breiman, "Random forests," <i>Mach. Learn.</i>, vol. 45, no. 1, pp. 5–32, 2001.</li>
+          <li>[11] D. B. Rubin, "Inference and missing data," <i>Biometrika</i>, vol. 63, no. 3, pp. 581–592, 1976.</li>
+        </ol>
+      </section>
+    </div>
+  </div>
+  <footer><span>Numeración de referencias según el notebook del TP (lista completa: 18 referencias, formato IEEE).</span><span>Código reproducible: Google Colab · scikit-learn · TensorFlow/Keras</span></footer>
+</div>
+</body>
+</html>
