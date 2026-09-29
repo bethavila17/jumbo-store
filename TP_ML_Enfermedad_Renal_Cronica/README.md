@@ -12,8 +12,8 @@ Regresión Logística, SVM, Random Forest y una red neuronal en Keras. La pregun
 | Archivo | Entregable |
 |---|---|
 | `TP_ML_Enfermedad_Renal_Cronica_Bethania_Avila.ipynb` | **Google Colab: informe técnico completo** (secciones 5 a 14 de la consigna). Se incluye ya ejecutado, con todas las salidas. |
-| `poster/poster_TP_CKD_Bethania_Avila.pdf` | **Póster científico** (A1 vertical, listo para imprimir o proyectar). |
-| `poster/poster_TP_CKD_Bethania_Avila.html` | Fuente editable del póster (se abre en el navegador; las figuras están en `figuras/`). |
+| `poster/poster_TP_CKD_Bethania_Avila.pptx` | **Póster científico** en PowerPoint (A1 vertical, 3 columnas), editable. |
+| `poster/poster_TP_CKD_Bethania_Avila.pdf` | El mismo póster exportado a PDF, para imprimir o proyectar. |
 | `presentacion/guion_defensa_5min.md` | **Guion de la presentación oral** (5 min) y preguntas probables con sus respuestas. |
 | `data/chronic_kidney_disease_full.arff` | Dataset original descargado de UCI (respaldo si `ucimlrepo` no está disponible). |
 | `figuras/` | Figuras y tabla comparativa generadas por el notebook (se regeneran al ejecutarlo). |
@@ -49,11 +49,11 @@ jupyter nbconvert --to notebook --execute --inplace TP_ML_Enfermedad_Renal_Croni
   Los modelos de scikit-learn dan resultados idénticos.
 
 ### Regenerar el póster
-El póster usa las figuras de `figuras/`. Después de ejecutar el notebook:
+El póster se arma con las figuras de `figuras/`. Después de ejecutar el notebook:
 ```bash
 cd poster
 python recortar_heatmap.py        # recorta el heatmap de faltantes para el póster
-chromium --headless --no-sandbox --print-to-pdf=poster_TP_CKD_Bethania_Avila.pdf \
-         --no-pdf-header-footer poster_TP_CKD_Bethania_Avila.html
+npm install pptxgenjs             # solo la primera vez
+node armar_poster.js              # genera poster_TP_CKD_Bethania_Avila.pptx
 ```
-(También puede abrirse el `.html` en Chrome y usar *Imprimir → Guardar como PDF*, con tamaño A1 y sin márgenes).
+Para el PDF: abrir el `.pptx` en PowerPoint y *Archivo → Exportar → PDF* (o `soffice --headless --convert-to pdf`).
