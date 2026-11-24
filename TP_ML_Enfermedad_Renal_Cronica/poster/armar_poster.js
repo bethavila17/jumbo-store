@@ -19,15 +19,14 @@ const s = pres.addSlide();
 s.background = { color: WHITE };
 
 // ---------- encabezado ----------
-s.addImage({ path: path.join(__dirname, "logo_ucom.png"), x: 0.7, y: 0.7, w: 2.6, h: 2.6 });
 s.addText("Universidad Comunera (UCOM)  ·  Taller de Machine Learning – Proyecto II ML  ·  Trabajo Práctico Integrador", {
-  x: 3.7, y: 0.65, w: 19, h: 0.6, fontFace: FONT, fontSize: 20, color: MUTED, isTextBox: true, margin: 0 });
+  x: 0.6, y: 0.65, w: 22.2, h: 0.6, fontFace: FONT, fontSize: 20, color: MUTED, isTextBox: true, margin: 0 });
 s.addText("Detección de enfermedad renal crónica con Machine Learning y efecto del tratamiento de los valores faltantes", {
-  x: 3.7, y: 1.2, w: 19, h: 1.95, fontFace: FONT, fontSize: 38, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "top" });
+  x: 0.6, y: 1.2, w: 22.2, h: 1.95, fontFace: FONT, fontSize: 40, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "top" });
 s.addText([
   { text: "Bethania Arami Avila Dominguez", options: { bold: true, fontSize: 26, color: INK } },
   { text: "     Caso 3 · Dataset Chronic Kidney Disease (UCI ID 336) · Septiembre 2026", options: { fontSize: 22, color: MUTED } },
-], { x: 3.7, y: 3.25, w: 19, h: 0.55, fontFace: FONT, isTextBox: true, margin: 0 });
+], { x: 0.6, y: 3.25, w: 22.2, h: 0.55, fontFace: FONT, isTextBox: true, margin: 0 });
 
 // ---------- utilidades ----------
 const M = 0.6, GAP = 0.4, COLW = (23.39 - 2 * M - 2 * GAP) / 3;   // 7.13
@@ -93,21 +92,21 @@ figura(c, y + 0.15 + 3.9, FIG("05_categoricas.png"), 6.0, 6.0 * 400 / 1000, "Var
 
 // ================= COLUMNA 2 =================
 c = caja(1, 4.3, 8.9, "4. Metodología");
-parrafos(c, c.y, 2.9, [
-  "Partición 80 / 20 estratificada. El Test (80 pacientes) se aparta al inicio y se usa una sola vez, al final.",
-  "Todo el preprocesamiento (codificación 0/1, estandarización e imputación por mediana) va dentro de un Pipeline de scikit-learn, así en cada fold se ajusta solo con datos de entrenamiento y no hay data leakage.",
-  "Hiperparámetros con GridSearchCV, validación cruzada estratificada de 5 folds sobre Training, métrica F1. Semilla fija (42).",
-]);
+parrafos(c, c.y, 3.05, [
+  "Partición 80 / 20 estratificada. El Test (80 pacientes) se usa una sola vez, al final.",
+  "Preprocesamiento (codificación 0/1, estandarización, mediana) dentro de un Pipeline: se ajusta solo con Training, sin data leakage.",
+  "Hiperparámetros: GridSearchCV, 5 folds estratificados sobre Training, métrica F1. Semilla 42.",
+], { size: 20, space: 6 });
 s.addTable([
   [{ text: "Modelo", options: { bold: true, color: WHITE, fill: { color: NAVY } } }, { text: "Hiperparámetros explorados", options: { bold: true, color: WHITE, fill: { color: NAVY } } }, { text: "Mejor configuración", options: { bold: true, color: WHITE, fill: { color: NAVY } } }],
   ["Regresión Logística", "C ∈ {0,01 … 100}; L1 / L2; class_weight", "C = 10, L2"],
   ["SVM", "kernel lineal / RBF; C ∈ {0,1 … 100}; gamma", "RBF, C = 10, gamma = scale"],
   ["Random Forest", "n árboles; profundidad; hojas; max_features", "200 árboles, sin límite de profundidad"],
   ["Red neuronal (Keras)", "capas (8) · (16, 8) · (32, 16); dropout 0 / 0,3", "24 → 8 → 1, dropout 0,3"],
-], { x: c.x, y: c.y + 3.0, w: c.w, colW: [1.9, 2.75, 1.88], fontFace: FONT, fontSize: 15, color: INK, fill: { color: WHITE },
+], { x: c.x, y: c.y + 3.15, w: c.w, colW: [1.9, 2.75, 1.88], fontFace: FONT, fontSize: 15, color: INK, fill: { color: WHITE },
   border: { type: "solid", color: "D5DAE3", pt: 0.75 }, margin: 0.06, rowH: 0.55, valign: "middle" });
 s.addText("Red: ReLU + salida sigmoide, entropía cruzada binaria, Adam (lr 0,003), batch 32, early stopping con paciencia 20.",
-  { x: c.x, y: c.y + 6.4, w: c.w, h: 1.0, fontFace: FONT, fontSize: CAP, color: MUTED, isTextBox: true, margin: 0, valign: "top" });
+  { x: c.x, y: c.y + 6.55, w: c.w, h: 0.9, fontFace: FONT, fontSize: CAP, color: MUTED, isTextBox: true, margin: 0, valign: "top" });
 
 c = caja(1, 13.5, 19.0, "5. Resultados en Test");
 const hdr = (t) => ({ text: t, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: "center" } });
