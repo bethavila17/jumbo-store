@@ -1,0 +1,597 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Estudio Defensa ERC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f3f5f8; --surface: #ffffff; --ink: #17212b; --muted: #56616d; --line: #d9dfe6;
+    --accent: #17696f; --accent-ink: #ffffff; --accent-soft: #e0f0f1;
+    --ask: #8a5300; --ask-soft: #fbf0dc;
+    --focus: #0b57d0; --warn: #a3321f; --warn-soft: #fbe6e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #11171d; --surface: #1a232c; --ink: #e7ecf0; --muted: #a3afba; --line: #2c3945;
+      --accent: #5cc0c8; --accent-ink: #0c1d20; --accent-soft: #163037;
+      --ask: #f0b45a; --ask-soft: #33290f; --focus: #8ab4f8; --warn: #ff9b8a; --warn-soft: #3a1c17;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #11171d; --surface: #1a232c; --ink: #e7ecf0; --muted: #a3afba; --line: #2c3945;
+    --accent: #5cc0c8; --accent-ink: #0c1d20; --accent-soft: #163037;
+    --ask: #f0b45a; --ask-soft: #33290f; --focus: #8ab4f8; --warn: #ff9b8a; --warn-soft: #3a1c17;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: "Atkinson Hyperlegible", system-ui, "Segoe UI", Arial, sans-serif;
+    font-size: 17px; line-height: 1.55; padding-inline: 16px; padding-block: 0 48px; }
+  h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; line-height: 1.2; text-wrap: balance; margin: 0; }
+  p { margin: 0 0 12px; }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; background: var(--accent-soft); color: var(--ink); padding: 1px 6px; border-radius: 4px; }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  header.top { padding-block: 28px 8px; }
+  header.top h1 { font-size: clamp(26px, 5vw, 36px); }
+  header.top p { color: var(--muted); margin: 6px 0 0; }
+
+  nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px;
+    display: flex; gap: 6px; overflow-x: auto; border-bottom: 1px solid var(--line); }
+  nav.tabs button { flex: 0 0 auto; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
+    cursor: pointer; font-weight: 700; color: var(--muted); }
+  nav.tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+  .panel { padding-top: 22px; }
+  .panel[hidden] { display: none; }
+  .intro { color: var(--muted); margin-bottom: 18px; }
+
+  /* cronómetro */
+  .timer { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  .timer .clock { font-family: "Source Serif 4", Georgia, serif; font-size: 40px; font-weight: 700; font-variant-numeric: tabular-nums; min-width: 4.2ch; }
+  .timer .clock.over { color: var(--warn); }
+  .timer .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 700; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .timer .hint { flex: 1 1 220px; color: var(--muted); font-size: 15px; margin: 0; }
+
+  /* speech */
+  .sec { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 18px; margin-bottom: 18px; }
+  .sec.now { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+  .sec .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 4px; }
+  .sec h2 { font-size: 24px; }
+  .chip { font-size: 14px; font-weight: 700; background: var(--accent-soft); color: var(--ink); padding: 2px 10px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+  .chip.now { background: var(--accent); color: var(--accent-ink); }
+  .idea { color: var(--muted); font-style: italic; margin: 0 0 14px; }
+  .label { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0 0 6px; }
+  .speech { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; font-size: 18px; }
+  .speech p:last-child { margin-bottom: 0; }
+  body.tapado .speech p { filter: blur(7px); cursor: pointer; user-select: none; }
+  body.tapado .speech.visto p { filter: none; user-select: auto; }
+  .senal { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
+  .senal b { color: var(--ink); }
+  .qa-title { margin-top: 6px; }
+  details.q { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; background: var(--surface); }
+  details.q summary { cursor: pointer; padding: 11px 14px; font-weight: 700; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+  details.q summary::-webkit-details-marker { display: none; }
+  details.q summary::before { content: "?"; flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; background: var(--ask-soft); color: var(--ask);
+    font-size: 14px; display: inline-flex; align-items: center; justify-content: center; }
+  details.q[open] summary::before { content: "R"; background: var(--accent); color: var(--accent-ink); }
+  details.q .ans { padding: 2px 14px 12px 46px; }
+  details.q .ans p:last-child { margin-bottom: 0; }
+  label.done { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 15px; color: var(--muted); cursor: pointer; }
+  label.done input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+  /* glosario */
+  .search { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .chips button { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 15px; }
+  .chips button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .gl { margin: 0; }
+  .gl .item { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+  .gl dt { font-weight: 700; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+  .gl dt small { font-weight: 400; color: var(--muted); font-size: 14px; }
+  .gl dd { margin: 4px 0 0; }
+  .gl .tuyo { display: block; margin-top: 6px; font-size: 15px; color: var(--muted); }
+  .gl .tuyo b { color: var(--ask); }
+  .vacio { color: var(--muted); padding: 12px 0; }
+  .cnt { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+
+  /* decisiones */
+  .grupo { margin-bottom: 28px; }
+  .grupo > h2 { font-size: 22px; margin-bottom: 10px; }
+  .dec { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .dec h3 { font-size: 18px; margin-bottom: 8px; }
+  .dec dl { margin: 0; display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .dec dt { font-size: 13px; letter-spacing: .05em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+  .dec dd { margin: 0 0 4px; }
+  @media (min-width: 640px) { .dec dl { grid-template-columns: 130px 1fr; gap: 4px 14px; } .dec dd { margin: 0; } }
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; background: var(--surface); font-size: 16px; font-variant-numeric: tabular-nums; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+  th { background: var(--accent-soft); }
+  .nota { background: var(--ask-soft); border-radius: 10px; padding: 12px 16px; margin: 14px 0; }
+  .nota.warn { background: var(--warn-soft); }
+  @media (prefers-reduced-motion: no-preference) { details.q .ans { animation: sube .18s ease-out; } }
+  @keyframes sube { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Estudio para la defensa</h1>
+    <p>Bethania Arami Avila Dominguez · Caso 3, enfermedad renal crónica (UCI 336) · 5 minutos de presentación</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Secciones de estudio">
+    <button role="tab" id="tab-speech" aria-selected="true" aria-controls="p-speech">Speech y preguntas</button>
+    <button role="tab" id="tab-glosario" aria-selected="false" aria-controls="p-glosario">Glosario</button>
+    <button role="tab" id="tab-decisiones" aria-selected="false" aria-controls="p-decisiones">Decisiones</button>
+    <button role="tab" id="tab-cifras" aria-selected="false" aria-controls="p-cifras">Cifras</button>
+  </nav>
+
+  <!-- ============ SPEECH ============ -->
+  <section class="panel" id="p-speech" role="tabpanel" aria-labelledby="tab-speech">
+    <p class="intro">Seis partes, con el tiempo aproximado de cada una. Leé el speech en voz alta, y después abrí las preguntas de cada parte y contestá con tus palabras antes de mirar la respuesta.</p>
+    <div class="timer">
+      <div class="clock" id="clock" aria-live="off">0:00</div>
+      <div class="btns">
+        <button class="btn primary" id="t-go">Iniciar</button>
+        <button class="btn" id="t-reset">Reiniciar</button>
+        <button class="btn" id="t-cover" aria-pressed="false">Tapar el speech</button>
+      </div>
+      <p class="hint">El cronómetro marca en qué parte deberías estar. Con "Tapar el speech" lo practicás de memoria; tocá el texto para verlo.</p>
+    </div>
+    <div id="speech-list"></div>
+  </section>
+
+  <!-- ============ GLOSARIO ============ -->
+  <section class="panel" id="p-glosario" role="tabpanel" aria-labelledby="tab-glosario" hidden>
+    <p class="intro">Buscá una sigla o un término. Cada uno tiene una explicación simple y, cuando aplica, qué pasó en tu trabajo.</p>
+    <input class="search" id="gl-q" type="search" placeholder="Buscar: rbc, recall, pipeline…" aria-label="Buscar en el glosario" autocomplete="off">
+    <div class="chips" id="gl-chips" role="group" aria-label="Filtrar por tema"></div>
+    <p class="cnt" id="gl-cnt"></p>
+    <dl class="gl" id="gl-list"></dl>
+  </section>
+
+  <!-- ============ DECISIONES ============ -->
+  <section class="panel" id="p-decisiones" role="tabpanel" aria-labelledby="tab-decisiones" hidden>
+    <p class="intro">Todo lo que decidiste en el trabajo, con el motivo. Si el profesor pregunta "¿por qué hiciste esto?", la respuesta está acá.</p>
+    <div class="nota"><b>Si no sabés una respuesta</b>, no inventes. Decí: "esa parte no la profundicé, pero lo que entiendo es…" y explicá lo que sí sabés.</div>
+    <div id="dec-list"></div>
+  </section>
+
+  <!-- ============ CIFRAS ============ -->
+  <section class="panel" id="p-cifras" role="tabpanel" aria-labelledby="tab-cifras" hidden>
+    <p class="intro">Los números que conviene tener a mano. Salen de la corrida final del notebook.</p>
+    <div id="cifras"></div>
+  </section>
+</div>
+
+<script>
+/* ---------------------------------------------------------------- datos: speech */
+var SPEECH = [
+ { id:'problema', ini:0, fin:40, rango:'0:00 – 0:40', titulo:'1. Problema',
+   idea:'Quiero que un programa avise qué pacientes probablemente tienen enfermedad renal, sin dejar escapar a ningún enfermo.',
+   senal:'Bloque "Problema" del póster.',
+   texto:[
+    'La enfermedad renal crónica es la pérdida progresiva de la función del riñón. Afecta a cerca del 9 % de la población y en las primeras etapas no da síntomas, por eso muchas veces se diagnostica tarde.',
+    'Lo que hice fue un clasificador que, con análisis de rutina de sangre y orina y antecedentes como hipertensión o diabetes, diga si un paciente tiene ERC o no. La clase positiva es <code>ckd</code>, porque en un tamizaje el error más grave es no detectar a un enfermo, así que la métrica que más me importa es el Recall.'
+   ],
+   qa:[
+    ['¿Qué es un problema de clasificación?','<p>El programa tiene que elegir una categoría entre pocas opciones. Acá son dos: con ERC o sin ERC. Si tuviera que predecir un número (por ejemplo el nivel de creatinina) sería un problema de regresión.</p>'],
+    ['¿Por qué <code>ckd</code> es la clase positiva? ¿Positiva es lo "bueno"?','<p>No. "Positiva" es la clase que estoy buscando, como cuando un test de COVID "da positivo". Busco enfermos, entonces <code>ckd</code> es la positiva.</p><p>Eso importa porque define qué es un falso negativo: un enfermo que el modelo dejó pasar como sano.</p>'],
+    ['¿Qué es un tamizaje?','<p>Una revisión masiva para encontrar posibles enfermos antes de que tengan síntomas. Después se confirma con estudios. El modelo no diagnostica: ayuda a priorizar a quién estudiar.</p>'],
+    ['¿Por qué usar Machine Learning acá?','<p>Porque hay 24 variables de tipos distintos, con datos incompletos, y a mano es difícil combinarlas. El modelo aprende de 400 casos reales qué combinación separa mejor a los enfermos. No reemplaza al médico.</p>'],
+    ['¿Cuál es la pregunta particular de tu caso?','<p>Cómo afecta el tratamiento de los valores faltantes al desempeño final de los modelos. La respondo en la parte de resultados.</p>']
+   ]},
+ { id:'dataset', ini:40, fin:90, rango:'0:40 – 1:30', titulo:'2. Dataset',
+   idea:'400 pacientes reales con muchos datos que faltan, y los que faltan no faltan al azar.',
+   senal:'Bloque "Dataset" y el gráfico de faltantes.',
+   texto:[
+    'Usé el dataset Chronic Kidney Disease del repositorio UCI, ID 336. Son 400 pacientes de un hospital de la India, 250 con ERC y 150 sin, y 24 variables, 14 numéricas y 10 categóricas. El desafío del caso son los valores faltantes: falta el 10,5 % de las celdas y solo 158 pacientes tienen el registro completo.',
+    'Lo más importante que vi en el análisis exploratorio es que los faltantes no son aleatorios: a un enfermo le faltan en promedio 3,6 datos y a un sano 0,7. Aparte, variables como la hemoglobina, la gravedad específica de la orina, la albúmina y la creatinina separan casi perfecto las dos clases.'
+   ],
+   qa:[
+    ['¿De dónde salen los datos?','<p>Del UCI Machine Learning Repository (un repositorio público de la Universidad de California en Irvine), dataset ID 336. Son pacientes del Apollo Hospitals, en Tamil Nadu, India. Los cargo con la librería <code>ucimlrepo</code>; como respaldo el notebook puede leer el archivo original <code>.arff</code> descargado de la misma página.</p>'],
+    ['¿Cuántos datos faltan?','<p>Faltan 1012 de las 9600 celdas (400 pacientes × 24 variables), o sea el 10,5 %. Solo 158 pacientes de 400 tienen todo completo. Las columnas con más huecos son <code>rbc</code> (38 %), <code>rbcc</code> (33 %), <code>wbcc</code> (26 %), <code>pot</code> y <code>sod</code> (22 %).</p>'],
+    ['¿Qué significa que los faltantes "no son aleatorios"?','<p>Que a los enfermos les faltan muchos más datos que a los sanos (3,6 contra 0,7 por paciente). Si faltaran por pura casualidad se diría MCAR. Acá la falta depende de la clase, seguramente por cómo se registraron los análisis en cada grupo.</p><p>Consecuencia: si borro los pacientes incompletos, borro sobre todo enfermos y sesgo la muestra.</p>'],
+    ['¿Hay desbalance de clases? ¿Importa?','<p>Sí, moderado: 62,5 % enfermos y 37,5 % sanos (1,67 a 1). No hizo falta generar datos sintéticos. Sí estratifiqué la partición y no usé solo Accuracy, porque un modelo que dijera siempre "enfermo" ya tendría 62,5 %.</p>'],
+    ['¿Qué es estratificar?','<p>Dividir los datos de forma que Train y Test conserven la misma proporción de enfermos y sanos. Así el Test no queda por casualidad con demasiados de un solo tipo.</p>'],
+    ['¿Por qué tratás <code>sg</code>, <code>al</code> y <code>su</code> como números si en el archivo son categorías?','<p>Porque tienen un orden natural: una albúmina de 3 es más que una de 1. Si las convirtiera en categorías separadas (one-hot) se perdería ese orden y sumaría columnas de más.</p>'],
+    ['¿Qué viste en el análisis exploratorio?','<p>Que en los enfermos baja la hemoglobina, el hematocrito y la gravedad específica de la orina, y suben la creatinina, la urea y la albúmina. Hipertensión, diabetes, anemia y edema aparecen solo en enfermos. Eso ya anticipaba que el problema iba a ser casi separable.</p>']
+   ]},
+ { id:'metodologia', ini:90, fin:135, rango:'1:30 – 2:15', titulo:'3. Metodología',
+   idea:'Guardo un examen final cerrado (el Test) y hago todo el preparado dentro de un Pipeline para no hacer trampa sin querer.',
+   senal:'Diagrama de metodología y la tabla de hiperparámetros.',
+   texto:[
+    'Separé 80 % para entrenamiento y 20 % para test, de forma estratificada, y el test lo usé una sola vez al final. Todo el preprocesamiento (pasar las categóricas a 0 y 1, estandarizar e imputar con la mediana) está dentro de un Pipeline, así en cada fold de la validación cruzada se ajusta solo con los datos de entrenamiento y no hay data leakage.',
+    'Los hiperparámetros los elegí con GridSearchCV, 5 folds estratificados, maximizando F1.'
+   ],
+   qa:[
+    ['¿Por qué separaste en Train y Test?','<p>Es como estudiar para un examen: el Train son los ejercicios de práctica y el Test es el examen con preguntas que nunca viste. Si probara el modelo con los mismos datos con los que aprendió, sacaría 10 pero no sabría si aprendió o si memorizó.</p>'],
+    ['¿Por qué 80/20?','<p>Es una proporción habitual. Con 400 pacientes deja 320 para entrenar y 80 para probar. El Test es chico, por eso cada paciente vale 1,25 puntos de Accuracy.</p>'],
+    ['¿Qué es el data leakage y cómo lo evitaste?','<p>Es cuando el modelo usa, sin querer, información del Test. Por ejemplo, si calculo la mediana con los 400 pacientes, esa mediana ya "sabe" algo del Test.</p><p>Lo evité con un Pipeline: en cada paso calcula todo (mediana, medias, desvíos) solo con los datos de entrenamiento y después lo aplica al resto.</p>'],
+    ['¿Qué es un Pipeline?','<p>Una cadena de pasos que se ejecutan siempre juntos y en orden: codificar, estandarizar, imputar y entrenar el modelo. Sirve para que nada se calcule con datos que no corresponden.</p>'],
+    ['¿Por qué estandarizaste?','<p>Para poner todas las variables en la misma escala. Sin eso, una variable con números grandes (glóbulos blancos, alrededor de 8000) pesaría más que una con números chicos (hemoglobina, alrededor de 12) solo por el tamaño. La Regresión Logística, la SVM y la red neuronal lo necesitan. El Random Forest no.</p>'],
+    ['¿Por qué imputaste con la mediana y no con la media?','<p>Porque la creatinina, la urea y la glucosa tienen valores extremos reales (creatinina de hasta 76) que corren la media. La mediana, el valor del medio, no se mueve por eso.</p>'],
+    ['¿Por qué no sacaste los valores extremos?','<p>Porque no son errores: son pacientes muy enfermos, y son justo los más informativos.</p>'],
+    ['¿Qué es la validación cruzada y por qué 5 folds?','<p>Parto el Train en 5 pedazos. Entreno con 4 y pruebo con el que quedó afuera, y repito 5 veces rotando. Con pocos datos, un solo pedazo de validación puede dar un número por casualidad; el promedio de 5 es más estable.</p>'],
+    ['¿Cuál es la diferencia entre validación y test?','<p>La validación (la validación cruzada) sirve para elegir modelo e hiperparámetros y se hace dentro del Train. El Test se toca una sola vez, al final, para medir cómo se comporta con datos nuevos. Si eligiera mirando el Test, dejaría de ser un examen justo.</p>'],
+    ['¿Por qué usaste F1 para elegir los hiperparámetros?','<p>Porque combina Precision y Recall de la clase enferma. Con Accuracy sola, un modelo que dijera siempre "enfermo" ya tendría 62,5 %.</p>']
+   ]},
+ { id:'modelos', ini:135, fin:165, rango:'2:15 – 2:45', titulo:'4. Modelos',
+   idea:'Cuatro formas distintas de aprender, de la más simple a la más compleja, para poder comparar.',
+   senal:'Tabla de modelos e hiperparámetros.',
+   texto:[
+    'Comparé cuatro modelos: Regresión Logística como referencia, SVM (probé kernel lineal y RBF, C y gamma), Random Forest como ensamble, que elegí porque aguanta outliers y variables correlacionadas y maneja bien la mezcla de tipos, y una red neuronal densa en Keras con Adam, entropía cruzada binaria, dropout y early stopping. A los cuatro les ajusté hiperparámetros.'
+   ],
+   qa:[
+    ['¿Cómo funciona la Regresión Logística?','<p>Le da un peso a cada variable, suma todo y convierte el resultado en una probabilidad entre 0 y 1 con la función sigmoide. Si la probabilidad pasa de 0,5, dice "enfermo". Es simple e interpretable, por eso es la referencia.</p>'],
+    ['¿Cómo funciona la SVM? ¿Qué son C, gamma y el kernel?','<p>Busca la línea que separa las dos clases dejando el mayor margen posible. Los puntos más cercanos a esa línea (vectores soporte) la definen.</p><p><b>C</b>: cuánto castigo a los errores (C alto = se ajusta más a los datos). <b>Kernel</b>: lineal hace rectas y RBF puede hacer curvas. <b>Gamma</b> (solo RBF): qué tan curva y pegada a los datos puede ser la frontera.</p>'],
+    ['¿Por qué eligió kernel RBF si el problema es casi lineal?','<p>Salió marginalmente mejor (C = 10), pero el lineal casi empata: F1 de 0,995 contra 0,9975 en validación cruzada. Es decir, la no linealidad aporta muy poco, lo que confirma que las clases se separan casi con una recta.</p>'],
+    ['¿Qué es un ensamble y por qué Random Forest?','<p>Un ensamble combina muchos modelos y decide por votación. El Random Forest entrena muchos árboles de decisión, cada uno con una muestra distinta de pacientes y de variables. Al promediarlos baja el riesgo de sobreajustar, no necesita estandarizar y aguanta valores extremos y variables parecidas entre sí. Además es de los que mejor andan en este dataset según la literatura.</p>'],
+    ['Describí tu red neuronal','<p>Entran las 24 variables ya preparadas, hay una capa oculta de 8 neuronas con ReLU y dropout de 0,3, y una neurona final con sigmoide que da la probabilidad de enfermedad. Pierde con entropía cruzada binaria, se optimiza con Adam (tasa de aprendizaje 0,003), batch de 32 y hasta 300 épocas con early stopping.</p>'],
+    ['¿Qué son dropout, época, batch y early stopping?','<p><b>Dropout</b>: apagar neuronas al azar en el entrenamiento para que no memorice. <b>Época</b>: una pasada completa por los datos. <b>Batch</b>: cuántos pacientes ve antes de ajustarse. <b>Early stopping</b>: separo un 20 % del Train como validación interna y corto el entrenamiento cuando no mejora durante 20 épocas. Nunca usa el Test.</p>'],
+    ['¿Qué es un hiperparámetro y cómo los ajustaste?','<p>Es una "perilla" del modelo que se fija antes de entrenar, como C o el número de árboles. Con GridSearchCV pruebo todas las combinaciones de una grilla chica, con validación cruzada de 5 folds, y me quedo con la de mejor F1. Los mejores: Regresión Logística C = 10 con L2; SVM RBF con C = 10; Random Forest 200 árboles; red de 8 neuronas con dropout 0,3.</p>']
+   ]},
+ { id:'resultados', ini:165, fin:245, rango:'2:45 – 4:05', titulo:'5. Resultados',
+   idea:'Todos andan muy bien; lo que decide es no dejar escapar enfermos, y lo que más pesa es cómo se tratan los faltantes.',
+   senal:'Tabla de resultados, matrices de confusión y mapa de calor de faltantes.',
+   texto:[
+    'En test, el Random Forest clasificó bien a los 80 pacientes; la SVM tuvo 1 error, la Regresión Logística 2 y la red neuronal 3. Todos los errores son falsos negativos, pacientes con ERC con valores casi normales, seguramente en etapa temprana. Ningún modelo dio falsos positivos. Como cada paciente de test vale 1,25 puntos, las diferencias son chicas: en validación cruzada los cuatro tienen F1 de 0,99 o más.',
+    'Para la pregunta del caso comparé seis formas de tratar los faltantes. Eliminar a los pacientes incompletos es lejos lo peor: el F1 baja a entre 0,81 y 0,92 y el Recall hasta 0,69, porque se pierde el 60 % de los datos y los enfermos pasan de ser el 62 % a ser el 27 % de la muestra. En cambio, imputar con la mediana, con KNN o con MICE da prácticamente lo mismo.'
+   ],
+   qa:[
+    ['¿Por qué el Random Forest sacó 100 %? ¿No es sospechoso?','<p>Es esperable acá: las clases están casi separadas y otros trabajos publicados llegan a 98 o 99 %. Además controlé que no haya leakage y que la validación cruzada (F1 de 0,995) y el Test coincidan.</p><p>Aun así, el Test tiene solo 80 pacientes, así que no digo que sea perfecto: digo que en estos 80 no falló.</p>'],
+    ['¿Qué es el Recall y por qué es el más importante?','<p>De todos los enfermos que había, cuántos encontró el modelo. En el Test había 50 enfermos: el Random Forest encontró 50 (Recall 1,00), la SVM 49, la Regresión Logística 48 y la red 47. Es la más importante porque no detectar a un enfermo es el error más grave.</p>'],
+    ['¿Qué es la matriz de confusión?','<p>Una tabla que cuenta los aciertos y los dos tipos de error: falsos positivos (falsa alarma: dije enfermo y estaba sano) y falsos negativos (dije sano y estaba enfermo). De ahí salen todas las demás métricas.</p>'],
+    ['¿Qué es el AUC?','<p>La probabilidad de que el modelo le dé un puntaje más alto a un enfermo que a un sano elegidos al azar. Va de 0,5 (moneda) a 1 (perfecto) y no depende del corte de 0,5.</p>'],
+    ['Todos andan muy bien. ¿Cuál es mejor?','<p>El Random Forest, porque fue el único que no dejó escapar ningún enfermo. Pero las diferencias son de 1 a 3 pacientes sobre 80, dentro de lo que varía por casualidad, así que no puedo asegurar que uno sea estadísticamente mejor. Los cuatro resuelven bien el problema.</p>'],
+    ['¿Hay sobreajuste? ¿Qué es eso?','<p>Sobreajuste es cuando el modelo memoriza los datos de entrenamiento, incluido el ruido, y después anda mal con datos nuevos. Acá no veo evidencia: la diferencia entre entrenamiento y validación cruzada es de 0,005 o menos y el Test coincide con la validación cruzada.</p>'],
+    ['¿Cómo eran los pacientes que los modelos no detectaron?','<p>Fueron tres pacientes distintos. Dos tenían valores casi normales (hemoglobina 13,9 y 16,1, sin hipertensión ni diabetes), probablemente en etapa muy temprana. El tercero tenía creatinina 32 y urea 391, valores extremos de enfermedad, y solo la red se equivocó con él.</p>'],
+    ['¿Por qué la red neuronal anduvo peor?','<p>Con unos 256 pacientes de entrenamiento no tiene ventaja sobre modelos más simples, y es más sensible a los valores extremos. En el paciente de creatinina 32 le dio probabilidad casi 0 de enfermedad: fuera del rango que vio al entrenar, extrapola mal. Al Random Forest no le pasa porque solo compara contra umbrales.</p>'],
+    ['¿Por qué eliminar filas es tan malo?','<p>Por dos motivos. Se pierde el 62 % del entrenamiento (de 256 a unos 97 pacientes). Y como los datos faltan más en los enfermos, las filas completas son casi todas de sanos: la proporción de enfermos que ve el modelo cae de 62,5 % a 26,5 %. Aprende mal a reconocerlos, por eso baja el Recall.</p>'],
+    ['Si evaluás solo con pacientes completos, ¿qué pasa?','<p>Se ve mejor de lo que es. Con solo los 37 pacientes completos del Test (11 enfermos), tres de los cuatro modelos entrenados eliminando filas dan Accuracy 1,000, mientras que sobre el Test real dan 0,89, 0,95 y 0,85. Eliminar filas también puede esconder el problema.</p>'],
+    ['¿Por qué no usaste los indicadores de faltante si dieron el mejor F1?','<p>Porque un modelo que solo sabe qué datos faltan, sin ningún valor clínico, ya predice con AUC 0,86. La ausencia de datos depende de cómo registró la información ese hospital y en otro puede no existir. La mediana da casi lo mismo y es más segura.</p>']
+   ]},
+ { id:'conclusiones', ini:245, fin:285, rango:'4:05 – 4:45', titulo:'6. Conclusiones',
+   idea:'Lo que más pesó fue preparar bien los datos, no el modelo; y esto todavía no es para usar en un hospital.',
+   senal:'Bloque "Conclusiones" del póster.',
+   texto:[
+    'Me quedo con tres cosas. La ERC se puede detectar con mucha precisión con análisis de rutina, y el modelo se apoya en variables que tienen sentido clínico. El Random Forest fue el más adecuado porque no dejó enfermos sin detectar, aunque la Regresión Logística es una alternativa válida y más fácil de interpretar. Y respondiendo a la pregunta del caso, la decisión más importante no fue el modelo sino cómo tratar los faltantes: hay que conservar a todos los pacientes e imputar dentro del pipeline.',
+    'La limitación principal es que son 400 pacientes de un solo hospital, habría que validarlo con datos de otro lado.'
+   ],
+   qa:[
+    ['¿Este modelo se podría usar en un hospital?','<p>Todavía no. Es un dataset chico, de un solo hospital de la India, no incluye el estadio de la enfermedad ni la tasa de filtración glomerular (eGFR), que es lo que usan los médicos, y los faltantes están asociados a la clase. Serviría como apoyo de tamizaje después de validarlo con datos de otros centros.</p>'],
+    ['¿Cuáles son las limitaciones?','<p>Son 400 pacientes de un solo hospital; los faltantes están asociados a la clase; no hay eGFR ni estadio; y el Test es chico (cada error vale 1,25 puntos).</p>'],
+    ['¿Qué harías con más tiempo?','<p>Validación con datos de otro hospital, validación cruzada anidada, ajustar el umbral de decisión para priorizar el Recall, probar XGBoost y explicar cada predicción con SHAP.</p>'],
+    ['¿Qué cambiarías si lo repitieras?','<p>Aplicaría logaritmo a la creatinina, la urea y la glucosa para la red neuronal, y usaría varias particiones Train/Test para tener una estimación más estable.</p>'],
+    ['¿Qué fue lo que más aprendiste o te sorprendió?','<p>Contestá con lo tuyo. Una opción verdadera con este trabajo: "me sorprendió que el modelo importara menos que cómo trato los datos que faltan".</p>']
+   ]}
+];
+
+/* ---------------------------------------------------------------- datos: glosario */
+var GL = [
+ // Variables
+ ['Variables','age','edad','Edad del paciente, en años.',''],
+ ['Variables','bp','blood pressure · presión arterial','Presión arterial, en mm/Hg.',''],
+ ['Variables','sg','specific gravity · gravedad específica','Qué tan concentrada está la orina. Un riñón sano la concentra bien; uno enfermo no. Valores: 1.005 a 1.025.','En enfermos baja. Se trata como número ordinal.'],
+ ['Variables','al','albumin · albúmina','Proteína en la orina, de 0 a 5. Un riñón sano no la deja pasar; si aparece, hay daño.','En enfermos sube.'],
+ ['Variables','su','sugar · azúcar','Azúcar en la orina, de 0 a 5.',''],
+ ['Variables','rbc','red blood cells · glóbulos rojos (en orina)','Resultado normal o anormal del examen de glóbulos rojos. La fuente solo dice "red blood cells" y se lo interpreta como examen de orina. No es lo mismo que <code>rbcc</code>.','Es la variable con más faltantes (38 %).'],
+ ['Variables','pc','pus cell · células de pus','Normal o anormal. Indica infección o inflamación.',''],
+ ['Variables','pcc','pus cell clumps · grumos de pus','Presentes o no presentes.',''],
+ ['Variables','ba','bacteria · bacterias','Presentes o no presentes en la orina.',''],
+ ['Variables','bgr','blood glucose random · glucosa en sangre','Azúcar en sangre medida en cualquier momento del día, en mg/dl.','Tiene valores extremos.'],
+ ['Variables','bu','blood urea · urea en sangre','Desecho que el riñón debería filtrar. Si sube, el riñón falla.','Tiene valores extremos (hasta 391).'],
+ ['Variables','sc','serum creatinine · creatinina sérica','Otro desecho que filtra el riñón. Es el marcador más usado para saber si los riñones andan bien.','Va de 0,4 a 76. Es de las variables más importantes.'],
+ ['Variables','sod','sodium · sodio','Sodio en sangre, en mEq/L.','Faltan 22 %.'],
+ ['Variables','pot','potassium · potasio','Potasio en sangre, en mEq/L.','Faltan 22 %.'],
+ ['Variables','hemo','hemoglobin · hemoglobina','Proteína de los glóbulos rojos que lleva el oxígeno. Baja en la anemia.','La variable más relacionada con la enfermedad (correlación −0,80). Los sanos tienen unos 15; los enfermos unos 11.'],
+ ['Variables','pcv','packed cell volume · hematocrito','Qué porcentaje de la sangre son glóbulos rojos.','Baja en enfermos.'],
+ ['Variables','wbcc','white blood cell count · glóbulos blancos','Cantidad de glóbulos blancos, que son los que defienden al cuerpo. En el archivo original se llama <code>wc</code>.','Faltan 26 %.'],
+ ['Variables','rbcc','red blood cell count · glóbulos rojos (en sangre)','Cuántos glóbulos rojos hay en la sangre, en millones por mm³. En el original se llama <code>rc</code>.','Faltan 33 %.'],
+ ['Variables','htn','hypertension · hipertensión','Si el paciente tiene presión alta (yes/no).','Aparece solo en enfermos.'],
+ ['Variables','dm','diabetes mellitus · diabetes','Si el paciente tiene diabetes (yes/no).','Aparece solo en enfermos.'],
+ ['Variables','cad','coronary artery disease · enfermedad coronaria','Si tiene enfermedad de las arterias del corazón (yes/no).',''],
+ ['Variables','appet','appetite · apetito','Bueno o pobre (good/poor).',''],
+ ['Variables','pe','pedal edema · edema pedal','Hinchazón en los pies (yes/no).',''],
+ ['Variables','ane','anemia','Si tiene anemia (yes/no).',''],
+ ['Variables','class','clase · variable objetivo','Lo que se quiere predecir: <code>ckd</code> (con enfermedad renal crónica) o <code>notckd</code> (sin ella).','Codificada como 1 y 0.'],
+ // Datos y método
+ ['Datos y método','ERC / CKD','Enfermedad Renal Crónica / Chronic Kidney Disease','Pérdida progresiva de la función de los riñones durante más de tres meses. Al principio casi no da síntomas.',''],
+ ['Datos y método','UCI','University of California, Irvine','Repositorio público de datasets para Machine Learning. De ahí sale el dataset del trabajo (ID 336).',''],
+ ['Datos y método','ucimlrepo','','Librería de Python para descargar datasets de UCI directamente desde el notebook.','El Anexo de la consigna pide cargar los datos así.'],
+ ['Datos y método','Clasificación','','Problema donde el programa elige una categoría entre pocas opciones. Se diferencia de la regresión, que predice un número.','Dos categorías: ckd y notckd.'],
+ ['Datos y método','Variable objetivo (target)','','Lo que se quiere predecir.','La columna <code>class</code>.'],
+ ['Datos y método','Variables predictoras (features)','','Las columnas que el modelo usa para predecir.','Las 24 variables clínicas.'],
+ ['Datos y método','Clase positiva','','La clase que se está buscando. No significa "buena". Define qué es un falso positivo y un falso negativo.','<code>ckd</code> = 1.'],
+ ['Datos y método','Tamizaje (screening)','','Revisión masiva para detectar posibles enfermos antes de que tengan síntomas.',''],
+ ['Datos y método','EDA','Exploratory Data Analysis · análisis exploratorio','Mirar los datos (gráficos, estadísticas) antes de entrenar, para entenderlos.','Sección 3 del notebook.'],
+ ['Datos y método','Valor faltante','','Un dato que no está registrado. En este dataset aparecía como <code>?</code>.','10,5 % de las celdas.'],
+ ['Datos y método','Imputar','','Rellenar un valor faltante con una estimación.','Con la mediana en el modelo principal.'],
+ ['Datos y método','Mediana','','El valor del medio de una columna ordenada. No se mueve por valores extremos, a diferencia de la media.',''],
+ ['Datos y método','MCAR','Missing Completely At Random','Cuando un dato falta por pura casualidad, sin relación con nada. Acá NO se cumple: faltan más datos en los enfermos.',''],
+ ['Datos y método','Estandarizar','','Transformar cada variable para que tenga media 0 y desvío 1, así todas quedan en la misma escala.','<code>StandardScaler</code>.'],
+ ['Datos y método','Codificar','','Pasar palabras a números.','normal = 0, abnormal = 1.'],
+ ['Datos y método','Outlier (valor extremo)','','Un valor muy lejos de los demás.','Creatinina de hasta 76. No los eliminé porque son casos reales.'],
+ ['Datos y método','Desbalance de clases','','Cuando hay muchos más casos de una clase que de otra.','62,5 % enfermos, 37,5 % sanos: moderado.'],
+ ['Datos y método','Estratificar','','Dividir los datos conservando la proporción de cada clase en cada parte.',''],
+ ['Datos y método','Train / Test','entrenamiento / prueba','Train: datos con los que el modelo aprende. Test: datos guardados que se usan una sola vez, al final, para medir cómo anda con datos nuevos.','320 / 80 pacientes.'],
+ ['Datos y método','Validación cruzada (CV)','cross-validation','Partir el Train en varios pedazos y rotar cuál se usa para probar, para tener una estimación más estable.','5 folds.'],
+ ['Datos y método','Fold','','Cada uno de los pedazos de la validación cruzada.',''],
+ ['Datos y método','Data leakage','fuga de datos','Cuando el modelo usa, sin querer, información del Test durante el entrenamiento. Da resultados demasiado optimistas.','Se evita con el Pipeline.'],
+ ['Datos y método','Pipeline','','Cadena de pasos (codificar, estandarizar, imputar, entrenar) que se ejecutan juntos y solo con datos de entrenamiento.',''],
+ ['Datos y método','Hiperparámetro','','Una "perilla" del modelo que se fija antes de entrenar (por ejemplo C o el número de árboles). No la aprende el modelo.',''],
+ ['Datos y método','GridSearchCV','','Prueba todas las combinaciones de una grilla de hiperparámetros con validación cruzada y se queda con la mejor.',''],
+ ['Datos y método','Semilla (seed)','','Número que fija el azar para que los resultados se repitan.','42.'],
+ ['Datos y método','Sobreajuste (overfitting)','','Cuando el modelo memoriza el entrenamiento, ruido incluido, y anda mal con datos nuevos.','No se observó.'],
+ ['Datos y método','Generalización','','Qué tan bien anda el modelo con datos que nunca vio.',''],
+ ['Datos y método','KNN','K-Nearest Neighbors','Para rellenar un hueco, promedia los k pacientes más parecidos.','k = 5.'],
+ ['Datos y método','MICE','Multiple Imputation by Chained Equations','Rellena cada variable con una predicción hecha a partir de las demás, de forma repetida.',''],
+ ['Datos y método','eGFR','estimated Glomerular Filtration Rate','Tasa de filtración glomerular estimada: la medida que usan los médicos para diagnosticar ERC.','No está en el dataset (limitación).'],
+ // Modelos
+ ['Modelos','Regresión Logística','','Modelo lineal: combina las variables con pesos y convierte el resultado en una probabilidad con la sigmoide.','Modelo de referencia.'],
+ ['Modelos','SVM','Support Vector Machine','Busca la frontera que separa las clases dejando el mayor margen.',''],
+ ['Modelos','Kernel','','Forma de la frontera de la SVM. Lineal = recta; RBF = puede ser curva.',''],
+ ['Modelos','RBF','Radial Basis Function','Tipo de kernel que permite fronteras curvas.','Elegido por la búsqueda.'],
+ ['Modelos','C','','En Regresión Logística y SVM: cuánto castigo a los errores. C alto ajusta más a los datos (riesgo de sobreajuste); C bajo es más simple.','C = 10 en ambos.'],
+ ['Modelos','gamma','','En la SVM con RBF: alcance de cada punto. Alto = frontera más compleja.','"scale".'],
+ ['Modelos','L1 / L2','regularización','Formas de evitar que el modelo dependa demasiado de una variable. L2 achica los pesos; L1 puede llevar algunos a cero.','L2 en la Regresión Logística.'],
+ ['Modelos','Árbol de decisión','','Serie de preguntas tipo "¿hemoglobina menor a 12?" que llevan a una decisión.',''],
+ ['Modelos','Random Forest','bosque aleatorio','Muchos árboles de decisión, cada uno con una muestra distinta de pacientes y variables, que votan.','200 árboles.'],
+ ['Modelos','Ensamble','','Combinar varios modelos para decidir entre todos. Reduce el riesgo de error de un solo modelo.',''],
+ ['Modelos','Red neuronal (MLP)','Multi-Layer Perceptron','Capas de "neuronas" matemáticas conectadas entre sí.','24 → 8 → 1.'],
+ ['Modelos','ReLU','Rectified Linear Unit','Función de activación de las capas ocultas: deja pasar los valores positivos y pone 0 a los negativos.',''],
+ ['Modelos','Sigmoide','','Función que convierte cualquier número en una probabilidad entre 0 y 1. Va en la neurona final.',''],
+ ['Modelos','Entropía cruzada binaria','binary cross-entropy','La función que mide el error de la red en un problema de dos clases.',''],
+ ['Modelos','Adam','','Algoritmo que va ajustando los pesos de la red durante el entrenamiento.','Tasa de aprendizaje 0,003.'],
+ ['Modelos','Época','','Una pasada completa de la red por todos los datos de entrenamiento.','Hasta 300.'],
+ ['Modelos','Batch','','Cantidad de pacientes que ve la red antes de ajustar sus pesos.','32.'],
+ ['Modelos','Dropout','','Apagar neuronas al azar durante el entrenamiento para evitar que memorice.','0,3.'],
+ ['Modelos','Early stopping','parada temprana','Cortar el entrenamiento cuando el error de validación deja de mejorar.','Paciencia de 20 épocas.'],
+ // Métricas
+ ['Métricas','Matriz de confusión','','Tabla que cuenta aciertos y errores de cada tipo.',''],
+ ['Métricas','VP / VN','verdadero positivo / negativo','Aciertos: enfermo detectado (VP) y sano reconocido como sano (VN).',''],
+ ['Métricas','FP','falso positivo','Falsa alarma: dijo enfermo y estaba sano.','0 en todos los modelos.'],
+ ['Métricas','FN','falso negativo','Enfermo que se le escapó: dijo sano y estaba enfermo. Es el error más grave.','RF 0 · SVM 1 · LR 2 · red 3.'],
+ ['Métricas','Accuracy','exactitud','Porcentaje total de aciertos. Puede engañar si hay más de una clase que de otra.',''],
+ ['Métricas','Precision','precisión','De los que el modelo llamó enfermos, cuántos realmente lo estaban.','1,00 en todos.'],
+ ['Métricas','Recall','sensibilidad','De los enfermos que había, cuántos encontró. Es la métrica clave en un tamizaje.','RF 1,00 · SVM 0,98 · LR 0,96 · red 0,94.'],
+ ['Métricas','Especificidad','','De los sanos, cuántos reconoció como sanos.','1,00 en todos.'],
+ ['Métricas','F1-score','','Un solo número que combina Precision y Recall. Si uno es malo, el F1 es malo.',''],
+ ['Métricas','ROC','Receiver Operating Characteristic','Curva que muestra el compromiso entre detectar enfermos y dar falsas alarmas según el corte que se use.',''],
+ ['Métricas','AUC','Area Under the Curve','Área bajo la curva ROC. 0,5 es tirar una moneda; 1 es perfecto. Mide qué tan bien ordena a los pacientes, sin importar el corte.','≥ 0,995 en los cuatro.'],
+ ['Métricas','Media ± desvío','','Promedio de los folds y cuánto varían entre sí.','F1 CV: 0,997 ± 0,005.']
+];
+
+/* ---------------------------------------------------------------- datos: decisiones */
+var DEC = [
+ ['Datos', [
+  ['Cargar los datos con ucimlrepo','Uso <code>fetch_ucirepo(id=336)</code> directo desde el notebook; el ARFF original queda como respaldo.','Es lo que pide el Anexo A de la consigna, y evita depender de archivos de mi computadora.','Descargar el archivo a mano.'],
+  ['Usar las 24 variables','No eliminé ninguna al comienzo.','Todas tienen sentido clínico y son pocas para 400 pacientes. En la sección de faltantes probé además eliminar las columnas con muchos huecos.','Seleccionar variables antes de entrenar.'],
+  ['<code>sg</code>, <code>al</code> y <code>su</code> como números','Las traté como ordinales numéricas.','Tienen orden natural y el one-hot lo perdería.','One-hot.'],
+  ['Conservar los valores extremos','No los eliminé.','Son pacientes muy enfermos y muy informativos; no son errores.','Recortarlos o eliminarlos.']
+ ]],
+ ['Preprocesamiento', [
+  ['Codificar categóricas como 0/1','normal = 0, abnormal = 1, etc.','Son binarias, así que 0/1 es equivalente a one-hot y mantiene los huecos para imputar después.','One-hot con más columnas.'],
+  ['Imputar con la mediana','Modelo principal: mediana de cada columna, calculada solo con Train.','Es robusta a los valores extremos y simple. En las binarias equivale a la moda.','Media, KNN o MICE (los probé en la sección 9).'],
+  ['Estandarizar','<code>StandardScaler</code> dentro del Pipeline.','La Regresión Logística, la SVM y la red neuronal son sensibles a la escala.','No estandarizar (solo el Random Forest no lo necesita).'],
+  ['No balancear las clases','No generé datos sintéticos.','El desbalance es moderado (62,5/37,5). Estratifiqué y usé F1/Recall; probé <code>class_weight</code> como hiperparámetro y no ayudó.','SMOTE u otro sobremuestreo.']
+ ]],
+ ['Protocolo experimental', [
+  ['Partición 80/20 estratificada','320 en Train y 80 en Test, semilla 42.','Es una proporción habitual y mantiene la misma proporción de enfermos en ambos.','70/30 o sin estratificar.'],
+  ['Test cerrado','El Test se usa una sola vez, al final.','Si eligiera modelos mirando el Test, sería un examen con las respuestas a la vista y los resultados serían demasiado optimistas.','—'],
+  ['Todo dentro de un Pipeline','Codificar, estandarizar, imputar y entrenar van juntos.','Evita data leakage: en cada fold se calcula todo solo con los datos de entrenamiento de ese fold.','Preprocesar todo antes de dividir.'],
+  ['Validación cruzada de 5 folds','Estratificada, solo sobre Train, métrica F1.','Con pocos datos, un solo pedazo de validación puede engañar; 5 folds da una estimación más estable sin tardar demasiado.','Un único pedazo de validación, o 10 folds.'],
+  ['Métrica de selección: F1','Elijo hiperparámetros por F1 de la clase <code>ckd</code>.','Combina Precision y Recall de la clase que importa.','Accuracy.']
+ ]],
+ ['Modelos', [
+  ['Clase positiva y métrica principal','<code>ckd</code> = positiva; miro sobre todo el Recall.','En un tamizaje el error más grave es no detectar a un enfermo (falso negativo).','Optimizar por Accuracy.'],
+  ['Regresión Logística como referencia','La primera y más simple.','Sirve de línea base: si un modelo complejo no la mejora, no vale la pena.','—'],
+  ['SVM con kernel lineal y RBF','Probé los dos, con C y gamma.','El análisis exploratorio sugería casi linealidad; con RBF verifico si una frontera curva aporta algo.','Solo un kernel.'],
+  ['Random Forest como ensamble','200 árboles, sin límite de profundidad.','Aguanta outliers y variables correlacionadas, mezcla bien tipos de variables, baja la varianza con pocos datos y da importancia de variables.','AdaBoost o Gradient Boosting.'],
+  ['Red neuronal chica','24 → 8 → 1, ReLU, dropout 0,3, Adam, early stopping.','Con 256 pacientes una red grande sobreajustaría; la consigna pide una arquitectura sencilla.','Una red más profunda.'],
+  ['Tasa de aprendizaje 0,003','Subí de 0,001 a 0,003.','Con 0,001 el entrenamiento llegaba al límite de épocas sin converger (mejor época 191 de 200). Con 0,003 el early stopping actúa (mejor época 134 de 154).','Aumentar las épocas.'],
+  ['Grillas chicas','Entre 6 y 20 combinaciones por modelo.','La consigna pide una búsqueda razonable que corra en Colab, y no valora una búsqueda excesiva sin justificación.','Búsqueda aleatoria grande.']
+ ]],
+ ['Valores faltantes (la pregunta del caso)', [
+  ['Comparar seis estrategias','Eliminar filas, eliminar columnas, mediana, mediana + indicador, KNN y MICE, con los mismos hiperparámetros.','Así la única diferencia entre experimentos es el tratamiento de los huecos.','—'],
+  ['Validación cruzada repetida 5×2','Diez particiones sobre Train, más confirmación en Test.','Con diferencias tan chicas entre imputaciones, hace falta una estimación más estable que un solo Test de 80 pacientes.','Solo Test.'],
+  ['Evaluar siempre sobre todos los pacientes','En la estrategia de eliminar filas, solo se achica el entrenamiento, no la evaluación.','Si también evaluara sobre completos, los resultados parecerían mejores de lo que son.','Evaluar solo sobre completos.'],
+  ['Quedarme con la mediana','Estrategia principal del modelo.','Anda prácticamente igual que las demás y no depende de cómo registró la información el hospital, a diferencia de los indicadores de faltante.','Mediana + indicador (dio F1 = 1,00 en algunos modelos).']
+ ]]
+];
+
+var CIFRAS = [
+ ['Dataset', ['Pacientes','400 (250 ckd, 150 notckd)'], ['Variables','24 (14 numéricas + 10 binarias)'], ['Celdas faltantes','10,5 % (1012 de 9600)'], ['Pacientes completos','158 de 400'], ['Faltantes por paciente','ckd 3,6 · notckd 0,7']],
+ ['Partición', ['Train','320 pacientes (200 ckd, 120 notckd)'], ['Test','80 pacientes (50 ckd, 30 notckd)'], ['Validación cruzada','5 folds estratificados'], ['Semilla','42']],
+];
+var TEST = {
+  cab: ['Modelo','Accuracy','Precision','Recall','F1','AUC','FN','F1 CV'],
+  filas: [
+   ['Regresión Logística','0,975','1,000','0,960','0,980','0,999','2','0,997'],
+   ['SVM (RBF)','0,988','1,000','0,980','0,990','1,000','1','0,997'],
+   ['Random Forest','1,000','1,000','1,000','1,000','1,000','0','0,995'],
+   ['Red neuronal','0,963','1,000','0,940','0,969','0,995','3','0,995']
+  ]
+};
+var FALT = {
+  cab: ['Estrategia','Reg. Logística','SVM','Random Forest','Red neuronal'],
+  filas: [
+   ['E1 Eliminar filas','0,867','0,921','0,814','0,852'],
+   ['E2 Eliminar columnas','0,996','0,999','0,993','0,991'],
+   ['E3 Mediana / moda','0,996','0,995','0,994','0,994'],
+   ['E4 Mediana + indicador','1,000','1,000','0,994','0,996'],
+   ['E5 KNN (k = 5)','0,987','0,995','1,000','0,983'],
+   ['E6 Iterativa (MICE)','0,990','0,996','0,998','0,991']
+  ]
+};
+
+/* ---------------------------------------------------------------- utilidades */
+function $(id) { return document.getElementById(id); }
+function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+/* ---------------------------------------------------------------- pestañas */
+var TABS = ['speech','glosario','decisiones','cifras'];
+function showTab(name) {
+  TABS.forEach(function (t) {
+    var sel = t === name;
+    $('tab-' + t).setAttribute('aria-selected', sel ? 'true' : 'false');
+    $('p-' + t).hidden = !sel;
+  });
+  store('erc-tab', name);
+}
+TABS.forEach(function (t) {
+  $('tab-' + t).addEventListener('click', function () { showTab(t); window.scrollTo(0, 0); });
+});
+document.querySelector('nav.tabs').addEventListener('keydown', function (e) {
+  var i = TABS.indexOf((document.activeElement.id || '').replace('tab-', ''));
+  if (i < 0) return;
+  if (e.key === 'ArrowRight') { i = (i + 1) % TABS.length; }
+  else if (e.key === 'ArrowLeft') { i = (i + TABS.length - 1) % TABS.length; }
+  else return;
+  e.preventDefault(); showTab(TABS[i]); $('tab-' + TABS[i]).focus();
+});
+
+/* ---------------------------------------------------------------- speech */
+(function renderSpeech() {
+  var hechos = {};
+  try { hechos = JSON.parse(store('erc-hechos') || '{}') || {}; } catch (e) { hechos = {}; }
+  $('speech-list').innerHTML = SPEECH.map(function (s) {
+    var qa = s.qa.map(function (x) {
+      return '<details class="q"><summary>' + x[0] + '</summary><div class="ans">' + x[1] + '</div></details>';
+    }).join('');
+    return '<article class="sec" id="s-' + s.id + '">' +
+      '<div class="head"><h2>' + s.titulo + '</h2><span class="chip" id="chip-' + s.id + '">' + s.rango + '</span></div>' +
+      '<p class="idea">' + s.idea + '</p>' +
+      '<p class="label">Speech para decir en voz alta</p>' +
+      '<div class="speech" data-id="' + s.id + '">' + s.texto.map(function (p) { return '<p>' + p + '</p>'; }).join('') + '</div>' +
+      '<p class="senal"><b>Señalá en el póster:</b> ' + s.senal + '</p>' +
+      '<p class="label qa-title">Preguntas posibles en esta parte (' + s.qa.length + ')</p>' + qa +
+      '<label class="done"><input type="checkbox" data-id="' + s.id + '"' + (hechos[s.id] ? ' checked' : '') + '> Ya practiqué esta parte</label>' +
+      '</article>';
+  }).join('');
+  document.querySelectorAll('label.done input').forEach(function (c) {
+    c.addEventListener('change', function () {
+      hechos[c.dataset.id] = c.checked; store('erc-hechos', JSON.stringify(hechos));
+    });
+  });
+  document.querySelectorAll('.speech').forEach(function (b) {
+    b.addEventListener('click', function () { b.classList.add('visto'); });
+  });
+})();
+
+/* cronómetro */
+(function timer() {
+  var seg = 0, id = null, clock = $('clock'), go = $('t-go');
+  function fmt(n) { return Math.floor(n / 60) + ':' + ('0' + (n % 60)).slice(-2); }
+  function pintar() {
+    clock.textContent = fmt(seg);
+    clock.classList.toggle('over', seg > 300);
+    var actual = -1;
+    SPEECH.forEach(function (s, i) { if (seg >= s.ini && seg < s.fin) actual = i; });
+    SPEECH.forEach(function (s, i) {
+      var on = (id !== null || seg > 0) && i === actual;
+      $('s-' + s.id).classList.toggle('now', on);
+      var c = $('chip-' + s.id); c.classList.toggle('now', on);
+      c.textContent = on ? 'Ahora · ' + s.rango : s.rango;
+    });
+  }
+  go.addEventListener('click', function () {
+    if (id === null) {
+      id = setInterval(function () { seg++; pintar(); }, 1000); go.textContent = 'Pausar';
+    } else { clearInterval(id); id = null; go.textContent = 'Seguir'; }
+    pintar();
+  });
+  $('t-reset').addEventListener('click', function () {
+    clearInterval(id); id = null; seg = 0; go.textContent = 'Iniciar'; pintar();
+  });
+  $('t-cover').addEventListener('click', function () {
+    var on = document.body.classList.toggle('tapado');
+    this.setAttribute('aria-pressed', on ? 'true' : 'false');
+    this.textContent = on ? 'Mostrar el speech' : 'Tapar el speech';
+    if (!on) document.querySelectorAll('.speech').forEach(function (b) { b.classList.remove('visto'); });
+  });
+})();
+
+/* ---------------------------------------------------------------- glosario */
+(function glosario() {
+  var cats = ['Todos'].concat(GL.map(function (g) { return g[0]; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
+  var cat = 'Todos', q = '';
+  $('gl-chips').innerHTML = cats.map(function (c) {
+    return '<button type="button" data-c="' + c + '" aria-pressed="' + (c === 'Todos') + '">' + c + '</button>';
+  }).join('');
+  function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function pintar() {
+    var nq = norm(q.trim());
+    var lista = GL.filter(function (g) {
+      if (cat !== 'Todos' && g[0] !== cat) return false;
+      if (!nq) return true;
+      return norm(g[1] + ' ' + g[2] + ' ' + g[3] + ' ' + g[4]).indexOf(nq) >= 0;
+    });
+    $('gl-cnt').textContent = lista.length + (lista.length === 1 ? ' término' : ' términos');
+    $('gl-list').innerHTML = lista.length ? lista.map(function (g) {
+      return '<div class="item"><dt>' + esc(g[1]) + (g[2] ? '<small>' + esc(g[2]) + '</small>' : '') + '</dt>' +
+        '<dd>' + g[3] + (g[4] ? '<span class="tuyo"><b>En tu trabajo:</b> ' + g[4] + '</span>' : '') + '</dd></div>';
+    }).join('') : '<p class="vacio">No encontré ese término. Probá con otra palabra.</p>';
+  }
+  $('gl-q').addEventListener('input', function (e) { q = e.target.value; pintar(); });
+  $('gl-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    cat = b.dataset.c;
+    $('gl-chips').querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    pintar();
+  });
+  pintar();
+})();
+
+/* ---------------------------------------------------------------- decisiones */
+$('dec-list').innerHTML = DEC.map(function (g) {
+  return '<section class="grupo"><h2>' + g[0] + '</h2>' + g[1].map(function (d) {
+    return '<div class="dec"><h3>' + d[0] + '</h3><dl>' +
+      '<dt>Qué hice</dt><dd>' + d[1] + '</dd>' +
+      '<dt>Por qué</dt><dd>' + d[2] + '</dd>' +
+      '<dt>Alternativa</dt><dd>' + d[3] + '</dd></dl></div>';
+  }).join('') + '</section>';
+}).join('');
+
+/* ---------------------------------------------------------------- cifras */
+function tabla(t) {
+  return '<div class="tablewrap"><table><thead><tr>' + t.cab.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' +
+    t.filas.map(function (f) { return '<tr>' + f.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+}
+$('cifras').innerHTML =
+  CIFRAS.map(function (g) {
+    return '<section class="grupo"><h2>' + g[0] + '</h2><div class="tablewrap"><table><tbody>' +
+      g.slice(1).map(function (r) { return '<tr><th scope="row">' + r[0] + '</th><td>' + r[1] + '</td></tr>'; }).join('') + '</tbody></table></div></section>';
+  }).join('') +
+  '<section class="grupo"><h2>Resultados en Test (80 pacientes)</h2>' + tabla(TEST) +
+  '<div class="nota">Cada paciente de Test vale 1,25 puntos de Accuracy. Las diferencias entre modelos son de 1 a 3 pacientes. Todos los errores son falsos negativos y ninguno dio falsos positivos.</div></section>' +
+  '<section class="grupo"><h2>F1 según cómo se tratan los faltantes (validación cruzada 5×2)</h2>' + tabla(FALT) +
+  '<div class="nota warn">Eliminar filas: se entrena con unos 97 pacientes en vez de 256, y los enfermos pasan de 62,5 % a 26,5 % del entrenamiento. El Recall cae a entre 0,69 y 0,86.</div></section>' +
+  '<section class="grupo"><h2>Hiperparámetros elegidos</h2><div class="tablewrap"><table><tbody>' +
+  '<tr><th scope="row">Regresión Logística</th><td>C = 10, penalización L2, sin class_weight</td></tr>' +
+  '<tr><th scope="row">SVM</th><td>Kernel RBF, C = 10, gamma = scale</td></tr>' +
+  '<tr><th scope="row">Random Forest</th><td>200 árboles, sin límite de profundidad, max_features = sqrt, hojas de 1</td></tr>' +
+  '<tr><th scope="row">Red neuronal</th><td>Capa oculta de 8, dropout 0,3, Adam (0,003), batch 32, early stopping (paciencia 20)</td></tr>' +
+  '</tbody></table></div></section>' +
+  '<section class="grupo"><h2>Otras cifras</h2><div class="tablewrap"><table><tbody>' +
+  '<tr><th scope="row">Correlación de hemoglobina con la enfermedad</th><td>−0,80 (la más alta)</td></tr>' +
+  '<tr><th scope="row">Modelo con solo indicadores de "faltó"</th><td>AUC 0,86 en CV y 0,82 en Test</td></tr>' +
+  '<tr><th scope="row">Test con pacientes completos</th><td>37 de 80 (11 enfermos)</td></tr>' +
+  '<tr><th scope="row">Referencias</th><td>18 (mínimo pedido: 5)</td></tr>' +
+  '</tbody></table></div></section>';
+
+/* ---------------------------------------------------------------- arranque */
+(function () {
+  var t = store('erc-tab');
+  if (t && TABS.indexOf(t) >= 0) showTab(t);
+})();
+</script>
+
+</body></html>
